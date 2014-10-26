@@ -2,8 +2,10 @@
 package model
 
 import (
+	"errors"
 	"labix.org/v2/mgo/bson"
 	"log"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -52,6 +54,41 @@ func GetPaste(id bson.ObjectId) Paste {
 		log.Fatal("Error on database get - GetPaste():", err)
 	}
 	return paste
+}
+
+func (this Paste) HighlightKeyWords() (result string, err error) {
+	var results []string
+	var replacer func(string) string
+	if this.LanguageId >= int64(len(Languages)) {
+		result = ""
+		err = errors.New("Invalid language")
+		return
+	}
+	replacer = makeReplacerFunction(Languages[this.LanguageId])
+
+	wordRx := regexp.MustCompile("[A-Za-z]+")
+	lines := strings.Split(this.Content, "\n")
+	for _, line := range lines {
+		newLine := wordRx.ReplaceAllStringFunc(line, replacer)
+		results = append(results, newLine)
+	}
+	result = strings.Join(results, "\n")
+	err = nil
+	return
+}
+
+func makeReplacerFunction(language Language) func(string) string {
+	keywords := language.Keywords
+
+	return func(word string) string {
+		if keywords == nil {
+			return word
+		}
+		if i := keywords.Search(word); i >= 0 {
+			return "<b>" + word + "</b>"
+		}
+		return word
+	}
 }
 
 /*
