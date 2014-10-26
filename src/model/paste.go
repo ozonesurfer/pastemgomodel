@@ -79,8 +79,9 @@ func (this Paste) HighlightKeywords() (result string, err error) {
 
 func makeReplacerFunction(language Language) func(string) string {
 	keywords := language.Keywords
+	var keystring string
 	if keywords != nil {
-		keystring := strings.Join(keywords, " ")
+		keystring = strings.Join(keywords, " ")
 	}
 	return func(word string) string {
 		if keywords == nil {
