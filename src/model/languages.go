@@ -2,8 +2,8 @@
 package model
 
 import (
-	//	"fmt"
-	"sort"
+//	"fmt"
+//	"sort"
 )
 
 /*
@@ -14,13 +14,13 @@ func main() {
 type Language struct {
 	Id       int64
 	Name     string
-	Keywords sort.StringSlice
+	Keywords []string
 }
 
 var Languages = []Language{
 	Language{int64(0), "Text", nil},
 	Language{int64(1), "Go",
-		sort.StringSlice{
+		[]string{
 			"break", "case", "chan", "const",
 			"continue", "default", "defer", "else", "fallthrough", "for", "func",
 			"go", "goto", "if", "import", "interface", "map", "package", "range",
