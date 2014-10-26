@@ -56,7 +56,7 @@ func GetPaste(id bson.ObjectId) Paste {
 	return paste
 }
 
-func (this Paste) HighlightKeyWords() (result string, err error) {
+func (this Paste) HighlightKeywords() (result string, err error) {
 	var results []string
 	var replacer func(string) string
 	if this.LanguageId >= int64(len(Languages)) {
@@ -84,7 +84,7 @@ func makeReplacerFunction(language Language) func(string) string {
 		if keywords == nil {
 			return word
 		}
-		if i := keywords.Search(word); i >= 0 {
+		if i := keywords.Search(word); i > 0 {
 			return "<b>" + word + "</b>"
 		}
 		return word
