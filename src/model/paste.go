@@ -66,7 +66,7 @@ func (this Paste) HighlightKeywords() (result string, err error) {
 	}
 	replacer = makeReplacerFunction(Languages[this.LanguageId])
 
-	wordRx := regexp.MustCompile("[A-Za-z]+")
+	wordRx := regexp.MustCompile("[A-Za-z_]+")
 	lines := strings.Split(this.Content, "\n")
 	for _, line := range lines {
 		newLine := wordRx.ReplaceAllStringFunc(line, replacer)
