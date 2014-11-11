@@ -12,14 +12,14 @@ func main() {
 }
 */
 type Language struct {
-	Id       int64
+	Id       int
 	Name     string
 	Keywords []string
 }
 
 var Languages = []Language{
-	Language{int64(0), "Text", nil},
-	Language{int64(1), "Go",
+	Language{0, "Text", nil},
+	Language{1, "Go",
 		[]string{
 			"break", "case", "chan", "const",
 			"continue", "default", "defer", "else", "fallthrough", "for", "func",
@@ -27,7 +27,7 @@ var Languages = []Language{
 			"return", "select", "struct", "switch", "type", "var",
 		},
 	},
-	Language{int64(2), "PHP",
+	Language{2, "PHP",
 		[]string{
 			"abstract", "and", "as", "break", "callable", "case", "catch", "class",
 			"clone", "const", "continue", "declare", "default", "do", "echo",

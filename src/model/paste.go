@@ -15,7 +15,7 @@ type Paste struct {
 	Title      string
 	Content    string
 	CreatedOn  time.Time
-	LanguageId int64
+	LanguageId int
 }
 
 // const DATABASE = "mgopastebin"
@@ -59,7 +59,7 @@ func GetPaste(id bson.ObjectId) Paste {
 func (this Paste) HighlightKeywords() (result string, err error) {
 	var results []string
 	var replacer func(string) string
-	if this.LanguageId >= int64(len(Languages)) {
+	if this.LanguageId >= len(Languages) {
 		result = ""
 		err = errors.New("Invalid language")
 		return
